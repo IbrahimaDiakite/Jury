@@ -68,6 +68,7 @@ if side :
      #   data["id_articles"].iloc[x] = x + 10000
 sub2 = st.button("Enregistrer les données")
 if sub2:
+    st.write(data)
     data = get_nyt_archive_data(start_year, end_year, start_month, end_month)
     data.fillna(value="none", inplace=True)
     data['word_count'].replace("none",0, inplace=True)
