@@ -7,7 +7,7 @@ import uuid
 from datetime import date
 from sqlalchemy import create_engine, text
 # create a SQLite database using SQLAlchemy
-engine = db.create_engine('sqlite:///nytimes.db', echo=True)
+engine = db.create_engine('sqlite:///nytimes2.db', echo=True)
 conn = engine.connect()
 
 meta = db.MetaData()
@@ -54,6 +54,7 @@ def get_nyt_archive_data(start_year, end_year, start_month, end_month):
 data = None
 side = st.sidebar.button("submit")
 if side :
+    #st.write(data_archive)
     data = get_nyt_archive_data(start_year, end_year, start_month, end_month)
 
 # display the data
@@ -67,8 +68,9 @@ if side :
      #   data["id_date"].iloc[x] = x
      #   data["id_articles"].iloc[x] = x + 10000
 sub2 = st.button("Enregistrer les données")
+data = None
 if sub2:
-    st.write(data)
+    #st.write(data_archive)
     data = get_nyt_archive_data(start_year, end_year, start_month, end_month)
     data.fillna(value="none", inplace=True)
     data['word_count'].replace("none",0, inplace=True)
