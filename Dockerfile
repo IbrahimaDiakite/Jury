@@ -8,6 +8,7 @@ COPY . /app
 
 
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install protobuf==3.20.0
 
 EXPOSE 8501
 
