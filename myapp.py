@@ -42,16 +42,18 @@ def get_nyt_archive_data(start_year, end_year, start_month, end_month):
     for year in range(start_year, end_year):
         for month in range(start_month, end_month):
             # create the API endpoint url for each year and month
-            url = 'https://api.nytimes.com/svc/archive/v1/' +str(year)+ '/' +str(month) + '.json?api-key=NhNaE50yWYQnrI3nAiNjgjcV8sAC5sR7'
-            url_archive = requests.get(url)
-            data_archive = json.loads(url_archive.text)
-            results_archive = data_archive['response']
-            # append the data to the dataframe
-            df_archive = df_archive.append(results_archive["docs"])
-
+            try:           
+                url = 'https://api.nytimes.com/svc/archive/v1/' +str(year)+ '/' +str(month) + '.json?api-key=nAAvfC4BGDJHHnhDSJPNDOw3kBrdxLkl'
+                url_archive = requests.get(url)
+                data_archive = json.loads(url_archive.text)
+                results_archive = data_archive['response']
+                # append the data to the dataframe
+                df_archive = df_archive.append(results_archive["docs"])
+            except:
+                pass
     # return the dataframe
     return df_archive
-data = None
+
 side = st.sidebar.button("submit")
 if side :
     #st.write(data_archive)
@@ -68,9 +70,8 @@ if side :
      #   data["id_date"].iloc[x] = x
      #   data["id_articles"].iloc[x] = x + 10000
 sub2 = st.button("Enregistrer les données")
-data = None
+
 if sub2:
-    #st.write(data_archive)
     data = get_nyt_archive_data(start_year, end_year, start_month, end_month)
     data.fillna(value="none", inplace=True)
     data['word_count'].replace("none",0, inplace=True)
